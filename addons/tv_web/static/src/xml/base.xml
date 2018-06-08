@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <div t-name="O2MFieldBinaryFileUploader" t-attf-class="oe_fileupload #{widget.attrs.class ? widget.attrs.class :''}">
+        <t t-if="widget.mode == 'readonly'">
+            <t t-if="widget.attrs.img_top">
+            </t>
+            <t t-else="1">
+                <h6><t t-esc="widget.string"/></h6>
+            </t>
+        </t>
+        <div class="oe_placeholder_files"/>
+        <div t-if="widget.mode !== 'readonly'" class="oe_add">
+            <t t-if="widget.attrs.img_top">
+                <div>
+                    <div class="o_field_image">
+                        <t t-if="widget.mode !== 'readonly'">
+                            <div class="o_form_image_controls">
+                                <span class="fa fa-pencil fa-lg pull-left o_select_file_button o_attach" title="Edit"/>
+                                <span class="fa fa-trash-o fa-lg pull-right o_clear_file_button oe_delete" title="Clear"/>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </t>
+            <t t-else="1">
+                <button class="btn btn-default o_attach"><span class="fa fa-paperclip"/> <t t-esc="widget.string"/></button>
+            </t>
+            <t t-call="HiddenInputFile">
+                <t t-set="fileupload_id" t-value="widget.fileupload_id"/>
+                <t t-set="fileupload_action" t-translation="off">/web/binary/my_upload_attachment</t>
+                <t t-set="multi_upload" t-value="true"/>
+                <input type="hidden" name="model" t-att-value="widget.model"/>
+                <input type="hidden" name="id" value="0"/>
+                <input t-if="widget.getSession().override_session" type="hidden" name="session_id" t-att-value="widget.getSession().session_id"/>
+            </t>
+        </div>
+    </div>
+    <div t-name="O2MFieldBinaryFileUploader.files" class="oe_attachments">
+        <t t-if="widget.mode === 'readonly'">
+            <t t-if="widget.value">
+                <div class="oe_attachment" >
+                    <img t-attf-src="/web/image/#{widget.value.res_id}/100x80" />
+                    <t t-if="!widget.attrs.img_top">
+                        <div><t t-esc="widget.value.data.display_name"/></div>
+                    </t>
+                </div>
+            </t>
+        </t>
+        <t t-else="1">
+            <t t-if="!widget.value">
+                <img class="img img-responsive" border="1" height="80" name="image" src="/web/static/src/img/placeholder.png" width="100" />
+            </t>
+            <t t-if="widget.value">
+                <div class="oe_attachment" style="margin: 0px; margin-bottom: 5px">
+                    <img t-attf-src="/web/image/#{widget.value.res_id}/100x80" />
+                    <t t-if="!widget.attrs.img_top">
+                        <div><t t-esc="widget.value.data.display_name"/></div>
+                    </t>
+
+                </div>
+            </t>
+            <t t-if="widget.uploadingFiles">
+                <div t-foreach="widget.uploadingFiles" t-as="file" class="oe_attachment">
+                    <div>Uploading...</div>
+                    <a t-att-title="file.name" t-att-name="file.name" class="o_image">
+                        <i class="fa fa-spinner fa-spin fa-5x fa-fw"></i>
+                    </a>
+                    <div><t t-esc="file.name"/></div>
+                </div>
+            </t>
+        </t>
+    </div>
+</templates>

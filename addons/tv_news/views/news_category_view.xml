@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <record id="tv_news_category_form_view" model="ir.ui.view">
+             <field name="name">tv.news.category.form</field>
+             <field name="model">tv.news.category</field>
+             <field name="arch" type="xml">
+                 <form string="News">
+                     <sheet>
+                         <group>
+                             <field name="name" />
+                             <field name="parent_id" />
+                             <field name="color" invisible="True" />
+                         </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="tv_news_category_list_view" model="ir.ui.view">
+            <field name="name">tv.news.category.list</field>
+            <field name="model">tv.news.category</field>
+            <field name="arch" type="xml">
+                <tree string="Category" >
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_news_category_form" model="ir.actions.act_window">
+            <field name="name">Category</field>
+            <field name="res_model">tv.news.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="tv_news_category_list_view"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add an news category.
+                </p><p>
+                </p>
+            </field>
+        </record>
+
+        <menuitem action="action_news_category_form" id="menu_action_news_category_form" parent="tv_news.news_menu" sequence="2"/>
+
+    </data>
+</odoo>

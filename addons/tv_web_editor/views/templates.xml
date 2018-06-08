@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="tv_web_editor" name="tv_web_editor templates" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/tv_web_editor/static/src/js/widgets.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

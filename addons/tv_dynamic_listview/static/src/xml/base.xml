@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="ListView.buttons">
+        <t t-jquery=".o_list_button_save" t-operation="after">
+            <div class="btn-group o_dropdown su_fields_show" groups="group_show_field">
+                <button class="o_dropdown_toggler_btn btn btn-sm dropdown-toggle su_btn-show-fields"
+                        data-toggle="dropdown" aria-expanded="true">
+                    <span class="fa fa-foursquare"></span> Fields <span class="caret"></span>
+                </button>
+                <t t-set="_record" t-value="[]"/>
+                <div class="dropdown-menu">
+                    <div class="su_action">
+                        <a title="Update" action="update" class="btn btn-default update_fields_show">
+                            <i class="fa fa-refresh fa-spin fa-1x fa-fw"
+                               title="Update" aria-hidden="true"></i>
+                            <span class="sr-only">Update</span>
+                        </a>
+                    </div>
+                    <div class="su_dropdown">
+                        <ul class="o_filters_menu" id="ul_fields_show" role="menu">
+                            <t t-foreach="widget.renderer.columns" t-as="field">
+                                <li class="selected" t-att-name="field.attrs.name">
+                                    <span class="span_ticked">&#xf00c;</span>
+                                    <a><t t-esc="widget._get_node_string(field)" /></a>
+                                    <input type="text" t-att-value="widget._get_node_string(field)" />
+                                    <t t-set="record" t-value="_record.push(field.attrs.name)" />
+                                </li>
+                            </t>
+                            <t t-foreach="widget.renderer.state.fields" t-as="field">
+                                <t t-if="_record.indexOf(field) == -1">
+                                    <li t-att-name="field">
+                                        <span>&#xf00c;</span>
+                                        <a>
+                                            <t t-esc="widget.renderer.state.fields[field].string" />
+                                        </a>
+                                        <input type="text" t-att-value="widget.renderer.state.fields[field].string" />
+                                    </li>
+                                </t>
+                            </t>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </t>
+</templates>

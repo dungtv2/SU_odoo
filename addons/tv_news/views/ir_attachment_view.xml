@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="tv_news_view_attachment_form_inherit" model="ir.ui.view">
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="base.view_attachment_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type']" position="after">
+                <field name="is_copy" invisible="True" />
+                <field name="is_store" invisible="True" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

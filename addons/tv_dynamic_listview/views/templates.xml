@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="su_dynamic_list" name="su_dynamic_list templates" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/less" href="/tv_dynamic_listview/static/src/less/dynamic_listview.less"/>
+                <script type="text/javascript" src="/tv_dynamic_listview/static/src/js/list_view.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>
