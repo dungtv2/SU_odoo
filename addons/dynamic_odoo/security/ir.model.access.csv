@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_view_dynamic,view.dynamic,model_view_dynamic,group_dynamic,1,1,1,1
+access_view_dynamic_base,view.dynamic,model_view_dynamic,base.group_user,1,1,1,1

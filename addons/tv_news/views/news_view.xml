@@ -20,13 +20,16 @@
                          <group>
                              <group>
                                  <field name="name" invisible="True"/>
+                                 <field name="url" invisible="True"/>
+                                 <field name="kind" />
                                  <field name="keys" placeholder="Keys..." widget="many2many_tags" options="{'color_field': 'color'}"  />
                                  <field name="tags" placeholder="Tags..." widget="many2many_tags" options="{'color_field': 'color'}"  />
-                                 <field name="category_id" placeholder="Category..." widget="many2many_tags" options="{'color_field': 'color'}" />
+                                 <field name="category_id" placeholder="Category..." />
                              </group>
                              <group>
                                  <field name="creation_date" />
                                  <field name="schedule_date" />
+                                 <field name="category_name" />
                              </group>
                          </group>
                          <notebook>
@@ -39,15 +42,17 @@
                              <page string="Other Information">
                                  <group>
                                      <group>
-                                         <field name="image_thumb" nolabel="1" widget="one2many_uploads" />
-                                         <field name="image_medium" nolabel="1" widget="one2many_uploads" />
+                                         <field attrs="{'invisible': [('kind', '=', 'news')]}" name="video" nolabel="1" widget="one2many_uploads" />
+                                         <field invisible="1" name="video_url" />
+                                         <field attrs="{'invisible': [('kind', '=', 'video')]}" name="image_thumb" nolabel="1" widget="one2many_uploads" />
+                                         <field attrs="{'invisible': [('kind', '=', 'video')]}" name="image_medium" nolabel="1" widget="one2many_uploads" />
                                          <field name="img" invisible="1" />
                                          <field name="img_thumb" invisible="1" />
                                          <field name="img_medium" invisible="1" />
                                      </group>
                                      <group>
-                                         <field name="image_left" nolabel="1" widget="one2many_uploads" />
-                                         <field name="image_top" nolabel="1" widget="one2many_uploads" />
+                                         <field attrs="{'invisible': [('kind', '=', 'video')]}" name="image_left" nolabel="1" widget="one2many_uploads" />
+                                         <field attrs="{'invisible': [('kind', '=', 'video')]}" name="image_top" nolabel="1" widget="one2many_uploads" />
                                          <field name="img_top" invisible="1" />
                                          <field name="img_left" invisible="1" />
                                      </group>

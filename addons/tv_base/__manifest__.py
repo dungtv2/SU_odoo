@@ -11,7 +11,7 @@
     'data': [
     ],
     'qweb': [
-        'static/src/xml/base.xml',
+        # 'static/src/xml/base.xml',
     ],
     'currency': 'EUR',
     'installable': True,

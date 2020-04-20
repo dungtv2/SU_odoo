@@ -10,6 +10,7 @@
     'depends': ['tv_web'],
     'data': [
         'views/news_view.xml',
+        'views/video_view.xml',
         'views/news_category_view.xml',
         'views/res_config_view.xml',
         'views/ir_attachment_view.xml'

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="ListView.buttons">
+        <t t-jquery=".o_list_button_save" t-operation="after">
+            <div class="btn-group o_dropdown su_fields_show" groups="group_show_field">
+                <button class="btn btn-secondary dropdown-toggle su_btn-show-fields"
+                        data-toggle="dropdown" aria-expanded="true">
+                    <span class="fa fa-cog span_config"></span>
+                    <span class="fa fa-foursquare"></span> Fields <span class="caret"></span>
+                </button>
+                <t t-set="_record" t-value="[]"/>
+                <div class="dropdown-menu">
+                    <div class="su_action">
+                        <t t-if="widget.uid == 1">
+                            <t t-if="widget.viewInfo.for_all_user">
+                                <input id="apply_for_all_user" name="apply_for_all_user" checked="checked" type="checkbox" />
+                            </t>
+                            <t t-if="!widget.viewInfo.for_all_user">
+                                <input id="apply_for_all_user" name="apply_for_all_user" type="checkbox" />
+                            </t>
+                            <label for="apply_for_all_user">Apply for all Users</label>
+                        </t>
+                        <a title="Update" action="update" class="btn btn-default update_fields_show">
+                            <i aria-label="Config" class="fa fa-refresh fa-spin fa-1x fa-fw" role="img" title="Config"></i>
+                            <span class="sr-only">Update</span>
+                        </a>
+                    </div>
+                    <div class="su_dropdown">
+                        <ul id="ul_fields_show" role="menu">
+                            <t t-foreach="widget.renderer.columns" t-as="field">
+                                <li class="selected" t-att-name="field.attrs.name">
+                                    <span class="span_ticked">&#xf00c;</span>
+                                    <a><t t-esc="widget._get_node_string(field.attrs.name)" /></a>
+                                    <input type="text" t-att-value="widget._get_node_string(field.attrs.name)" />
+                                    <t t-set="record" t-value="_record.push(field.attrs.name)" />
+                                </li>
+                            </t>
+                            <t t-foreach="widget.renderer.state.fields" t-as="field">
+                                <t t-if="_record.indexOf(field) == -1">
+                                    <li t-att-name="field">
+                                        <span>&#xf00c;</span>
+                                        <a>
+                                            <t t-esc="widget.renderer.state.fields[field].string" />
+                                        </a>
+                                        <input type="text" t-att-value="widget.renderer.state.fields[field].string" />
+                                    </li>
+                                </t>
+                            </t>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="FormView.buttons">
+        <t t-jquery=".o_form_buttons_edit" t-operation="after">
+            <div class="btn-group o_dropdown su_fields_show" groups="group_show_field">
+                <button class="btn btn-secondary dropdown-toggle su_btn-show-fields"
+                        aria-expanded="true">
+                    <span class="fa fa-foursquare"></span> Fields <span class="caret"></span>
+                </button>
+                <div class="wrapper-menu">
+                <div class="dropdown-menu-lala">
+                    <div class="su_action">
+                        <input type="checkbox" id="apply_for" name="apply_for" style="line-height: 30px; vertical-align: middle; margin-left: 5px;" />
+                        <label for="apply_for" style="font-size: 12px; vertical-align: sub; margin-bottom: 0px; color: #7c7bad">Apply For All</label>
+                        <a title="Update" action="update" class="btn btn-default update_fields_show">
+                            <i aria-label="Config" class="fa fa-refresh fa-spin fa-1x fa-fw" role="img" title="Config"></i>
+                            <span class="sr-only">Update</span>
+                        </a>
+                    </div>
+                    <div class="su_dropdown">
+                        <ul class="" id="ul_fields_show" role="menu">
+                            <t t-foreach="widget.viewInfo.fields" t-as="field">
+                                <li class="li_ok" t-att-name="field">
+                                    <span>&#xf00c;</span>
+                                    <a>
+                                        <t t-esc="widget._get_node_string(field, 'string')" />
+                                    </a>
+                                    <div class="lala">
+                                        <table>
+                                            <tr>
+                                                <td colspan="3"><input class="xixi" type="text" style="width: 100%; text-align: center; font-weight: bold;" t-att-value="widget._get_node_string(field, 'string')" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <t t-raw="widget._get_node_string(field, 'invisible')" />
+                                                </td>
+                                                <td>
+                                                    <i class="fa fa-cog lili" aria-label="Config" role="img" title="Config"></i>
+                                                </td>
+                                                <td>Invisible</td>
+                                            </tr>
+                                            <tr>
+                                                <td><t t-raw="widget._get_node_string(field, 'readonly')" /></td>
+                                                <td>
+                                                    <i class="fa fa-cog lili" aria-label="Config" role="img" title="Config"></i>
+                                                </td>
+                                                <td>Readonly</td>
+                                            </tr>
+                                            <tr>
+                                                <td><t t-raw="widget._get_node_string(field, 'required')" /></td>
+                                                <td>
+                                                    <i class="fa fa-cog lili" aria-label="Config" role="img" title="Config"></i>
+                                                </td>
+                                                <td>Required</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <t t-raw="widget.getFieldLine(field)" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">
+                                                    <button action="update" class="btn btn-secondary update_fields_show" title="Update" style="padding: 1px 5px; margin-top: 5px; width: 100%">
+                                                        Update
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </li>
+                            </t>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </t>
+    </t>
+</templates>

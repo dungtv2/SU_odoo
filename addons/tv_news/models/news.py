@@ -1,4 +1,5 @@
 import io
+import re
 import os
 import base64
 import pathlib
@@ -14,6 +15,7 @@ class TVNews(models.Model):
 
     name = fields.Char(string="Name", required=True)
     title = fields.Char(string="Title", required=True)
+    url = fields.Char(string="URL", required=True)
     description = fields.Text(string="Description")
     tags = fields.Many2many(string="Tags", comodel_name="tv.news.tags")
     keys = fields.Many2many(string="Keys", comodel_name="tv.news.keys")
@@ -23,10 +25,13 @@ class TVNews(models.Model):
                                         ('cancel', 'Cancel')])
     body = fields.Html(string="Body", help="Body")
     note = fields.Text(string="Note")
-    category_id = fields.Many2many(comodel_name="tv.news.category", string="Category")
+    category_id = fields.Many2one(comodel_name="tv.news.category", string="Category")
     hot = fields.Boolean(string="Hot**")
+    kind = fields.Selection([('news', 'News'), ('video', 'Video')], string="Type", default="news")
     creation_date = fields.Datetime(string="Creation Date", default=datetime.now())
     schedule_date = fields.Datetime(string="Schedule Date", default=datetime.now())
+    category_name = fields.Char(string="Category Name", related="category_id.name", store=True)
+    category_code = fields.Char(string="Category Code", related="category_id.code", store=True)
     # active = fields.Boolean(string="Active", default=True)
     image = fields.Many2one(string="Original", comodel_name="ir.attachment")
     image_thumb = fields.Many2one(string="Thumb", comodel_name="ir.attachment")
@@ -38,6 +43,9 @@ class TVNews(models.Model):
     img_medium = fields.Char(string="Medium", related="image_medium.url", store=True)
     img_top = fields.Char(string="Top", related="image_top.url", store=True)
     img_left = fields.Char(string="Left", related="image_left.url", store=True)
+    # video
+    video = fields.Many2one(string="Video", comodel_name="ir.attachment")
+    video_url = fields.Char(string="Video", related="video.url", store=True)
 
     @api.onchange('image')
     def _get_image(self):
@@ -98,7 +106,7 @@ class TVNews(models.Model):
 
     @api.onchange('image_top')
     def _onchange_top(self):
-        self.resize_image(self.image_top, "tv_news.size_image_top", default="(480, 300)")
+        # self.resize_image(self.image_top, "tv_news.size_image_top", default="(480, 300)")
         self.img_top = self.image_top.url
 
     @api.onchange('image_left')
@@ -106,9 +114,28 @@ class TVNews(models.Model):
         self.resize_image(self.image_left, "tv_news.size_image_left", default="(240, 300)")
         self.img_left = self.image_left.url
 
+    @api.model
+    def title_to_url(self, title):
+        if title:
+            title = title.lower()
+            title = re.sub("à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ", "a", title)
+            title = re.sub("è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ", "e", title)
+            title = re.sub("ì|í|ị|ỉ|ĩ", "i", title)
+            title = re.sub("ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ", "o", title)
+            title = re.sub("ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ", "u", title)
+            title = re.sub("ỳ|ý|ỵ|ỷ|ỹ", "y", title)
+            title = re.sub("đ", "d", title)
+            title = re.sub("!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,"
+                           "|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||/", "", title)
+            title = re.sub("\+", "", title)
+            title = title.strip()
+            title = re.sub(" ", "-", title)
+        return title
+
     @api.onchange("title")
     def onchange_title(self):
         self.name = self.title
+        self.url = self.title_to_url(self.title)
 
     @api.multi
     def action_approve(self):
@@ -167,8 +194,20 @@ class TVNewsCategory(models.Model):
     _name = "tv.news.category"
 
     name = fields.Char(string="Name")
+    code = fields.Char(string="Code")
     parent_id = fields.Many2one(comodel_name="tv.news.category", string="Parent")
+    url = fields.Char(string="Url")
     color = fields.Integer(string='Color Index')
+    #
+    # @api.model
+    # def create(self, values):
+    #     res = super(TVNewsCategory, self).create(values)
+    #     return res
+    #
+    # @api.multi
+    # def write(self, values):
+    #     res = super(TVNewsCategory, self).write(values)
+    #     return res
 
 
 TVNewsCategory()

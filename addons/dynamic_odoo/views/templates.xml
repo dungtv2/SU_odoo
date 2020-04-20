@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="dynamic_odoo" name="dynamic_odoo templates" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/css" href="/dynamic_odoo/static/src/css/daterangepicker.css"/>
+                <link rel="stylesheet" type="text/less" href="/dynamic_odoo/static/src/less/dynamic_listview.less"/>
+                <link rel="stylesheet" type="text/less" href="/dynamic_odoo/static/src/less/form_view.less"/>
+                <script type="text/javascript" src="/dynamic_odoo/static/src/libs/daterangepicker.js"></script>
+                <script type="text/javascript" src="/dynamic_odoo/static/src/js/views/list/list_view.js"></script>
+                <script type="text/javascript" src="/dynamic_odoo/static/src/js/views/list/list_controller.js"></script>
+                <script type="text/javascript" src="/dynamic_odoo/static/src/js/views/list/list_renderer.js"></script>
+                <script type="text/javascript" src="/dynamic_odoo/static/src/js/views/search/search_view.js"></script>
+                <script type="text/javascript" src="/dynamic_odoo/static/src/js/views/form/form_view.js"></script>
+                <script type="text/javascript" src="/dynamic_odoo/static/src/js/views/form/form_controller.js"></script>
+                <script type="text/javascript" src="/dynamic_odoo/static/src/js/views/form/form_renderer.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

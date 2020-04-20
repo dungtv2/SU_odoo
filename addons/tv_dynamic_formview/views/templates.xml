@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="su_tv_dynamic_formview" name="su_tv_dynamic_formview templates" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/less" href="/tv_dynamic_formview/static/src/less/form_view.less"/>
+                <script type="text/javascript" src="/tv_dynamic_formview/static/src/js/form_view.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

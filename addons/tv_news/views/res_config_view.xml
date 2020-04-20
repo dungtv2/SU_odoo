@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="res_config_settings_view_form" model="ir.ui.view">
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
             <field name="name">res.config.settings.view.form</field>
             <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base.res_config_settings_view_form" />
             <field name="arch" type="xml">
-                <xpath expr="//div[hasclass('settings')]" position="inside">
+                <xpath expr="//div[@class='settings']" position="inside">
                     <div class="app_settings_block" data-string="News" string="News" data-key="tv_news">
                         <div id="business_documents">
                             <h2>Image Size</h2>
@@ -84,5 +86,6 @@
         sequence="0"
         action="tv_news_action_news_config_settings"
         groups="base.group_system"/>
+    </data>
 
 </odoo>
