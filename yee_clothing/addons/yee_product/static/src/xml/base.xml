@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="FieldBinaryFileUploader.attachment_preview">
+        <t t-jquery=".o_image.o_hover" t-operation="replace">
+            <span class="o_image o_hover" t-att-data-mimetype="mimetype" t-att-data-src="'data:image/png;base64,'+file.datas" t-att-data-ext="ext" role="img"/>
+        </t>
+    </t>
+    <t t-extend="FieldBinaryFileUploader">
+        <t t-jquery="input[name='id']" t-operation="replace">
+            <input type="hidden" name="id" t-att-value="widget.res_id"/>
+        </t>
+    </t>
+</templates>

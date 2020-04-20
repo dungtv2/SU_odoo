@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="yee_product_product_normal_form_view_inherit" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='image_1920']" position="after">
+                <field name="sale_price" />
+            </xpath>
+            <xpath expr="//page[@name='purchase']" position="after">
+                <page string="Images" name="images">
+                    <group name="Images">
+                        <field name="image_more" widget="many2many_binary" context="{'res_field': 'image_more', 'res_id': id}" />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
